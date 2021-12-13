@@ -219,7 +219,7 @@
                                 <div class="divider"></div>
                             </div>
                             <div class="item-benefit-pricing mb-4">
-                                <img src="{{asset('assets/')}}images/ic_check.svg" alt="">
+                                <img src="{{asset('assets/images/ic_check.svg')}}" alt="">
                                 <p>
                                     1-1 Mentoring Program
                                 </p>
