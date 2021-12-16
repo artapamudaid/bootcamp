@@ -226,6 +226,9 @@ class CheckoutController extends Controller
             // TODO set payment status in merchant's database to 'expire'
             $checkout->payment_status = 'failed';
         }
+
+        $checkout->save();
+        return view('checkout/success');
     }
 
     // public function invoice(Checkout $checkout)
