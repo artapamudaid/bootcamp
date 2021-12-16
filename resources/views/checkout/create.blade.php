@@ -64,7 +64,7 @@
                                 <label class="form-label">Phone</label>
                                 <input name="phone" type="text"
                                     class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
-                                    value="{{ old('phone') ?: Auth::user()->occupation }}" required>
+                                    value="{{ old('phone') ?: Auth::user()->phone }}" required>
                                 @if ($errors->has('phone'))
                                 <p class="text-danger">{{ $errors->first('phone') }}</p>
                                 @endif
@@ -73,7 +73,7 @@
                                 <label class="form-label">Address</label>
                                 <textarea name="address" cols="10"
                                     class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}"
-                                    required>{{ old('address') ?: Auth::user()->occupation }}</textarea>
+                                    required>{{ old('address') ?: Auth::user()->address }}</textarea>
                                 @if ($errors->has('address'))
                                 <p class="text-danger">{{ $errors->first('address') }}</p>
                                 @endif
