@@ -20,8 +20,12 @@
             @include('components.alert')
             <table class="table">
                 <tbody>
+                    @php
+                    $no = 1
+                    @endphp
                     @forelse ($checkouts as $checkout)
                     <tr class="align-middle">
+                        <td>{{ $no++ }}.</td>
                         <td width="18%">
                             <img src="{{ asset('assets/images/item_bootcamp.png') }}" height="120" alt="">
                         </td>
@@ -37,10 +41,21 @@
                             <strong>Rp {{ number_format($checkout->Camp->price, 0, ',', '.') }}</strong>
                         </td>
                         <td>
-                            @if ($checkout->is_paid)
-                            <strong class="text-success">Payment Success</strong>
+                            @if ($checkout->payment_status == "paid")
+                            <strong class="text-success">{{ ucwords($checkout->payment_status) }}</strong>
+                            @elseif ($checkout->payment_status == "failed")
+                            <strong class="text-danger">{{ ucwords($checkout->payment_status) }}</strong>
                             @else
-                            <strong class="text-warning">Waiting for Payment</strong>
+                            <strong class="text-warning">{{ ucwords($checkout->payment_status) }}</strong>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($checkout->payment_status == 'waiting')
+                            <a href="{{ $checkout->midtrans_url }}" class="btn btn-primary" target="_blank">
+                                Pay Here
+                            </a>
+                            @else
+                            <strong>No Action</strong>
                             @endif
                         </td>
                         <td>
@@ -53,7 +68,7 @@
                     @empty
                     <tr>
                         <td colspan="5">
-                            <h3>Belum Ada Transaksi</h3>
+                            <h3>No Camp Registered</h3>
                         </td>
                     </tr>
                     @endforelse

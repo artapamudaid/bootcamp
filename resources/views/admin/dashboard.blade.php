@@ -14,36 +14,32 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>User</th>
                                 <th>Camp</th>
                                 <th>Price</th>
                                 <th>Register Data</th>
                                 <th>Paid Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $no=1
+                            @endphp
                             @forelse ($checkouts as $checkout)
                             <tr>
+                                <td>{{ $no++ }}.</td>
                                 <td>{{ $checkout->User->name }}</td>
                                 <td>{{ $checkout->Camp->title }}</td>
                                 <td>{{ 'Rp ' . number_format($checkout->Camp->price, 0, ',', '.') }}</td>
                                 <td>{{ $checkout->created_at->format('d F Y') }}</td>
                                 <td>
-                                    @if ($checkout->is_paid)
-                                    <span class="badge bg-success">Paid</span>
+                                    @if ($checkout->payment_status == "paid")
+                                    <strong class="text-success">{{ ucwords($checkout->payment_status) }}</strong>
+                                    @elseif ($checkout->payment_status == "failed")
+                                    <strong class="text-danger">{{ ucwords($checkout->payment_status) }}</strong>
                                     @else
-                                    <span class="badge bg-warning">Waiting</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    @if (!$checkout->is_paid)
-                                    <form action="{{ route('admin.checkout.update', $checkout->id) }}" method="post">
-                                        @csrf
-                                        <button class="btn-primary btn-xs">
-                                            Set to Paid
-                                        </button>
-                                    </form>
+                                    <strong class="text-warning">{{ ucwords($checkout->payment_status) }}</strong>
                                     @endif
                                 </td>
                             </tr>
